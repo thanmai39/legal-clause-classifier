@@ -9,3 +9,4 @@ torch==2.14.0
 transformers==5.16.1
 accelerate==1.14.0
 evaluate==0.4.6
+matplotlib==3.11.1
