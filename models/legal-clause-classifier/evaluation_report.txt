@@ -1,0 +1,44 @@
+=== Test Set Evaluation ===
+Accuracy:     0.7981
+Macro-F1:     0.7076
+Weighted-F1:  0.7870
+
+Per-class precision/recall/F1:
+                                    precision    recall  f1-score   support
+
+        Affiliate License-Licensee      0.500     0.333     0.400        15
+                    Agreement Date      0.607     1.000     0.755        71
+                   Anti-Assignment      0.839     0.886     0.862        88
+                      Audit Rights      0.964     0.920     0.941        87
+                  Cap On Liability      0.882     0.753     0.812        89
+                 Change Of Control      0.600     0.636     0.618        33
+ Competitive Restriction Exception      0.421     0.471     0.444        17
+               Covenant Not To Sue      0.913     0.913     0.913        23
+                     Document Name      0.987     1.000     0.994        78
+                    Effective Date      0.714     0.154     0.253        65
+                       Exclusivity      0.646     0.564     0.602        55
+                   Expiration Date      0.732     0.857     0.789        70
+                     Governing Law      1.000     0.971     0.985        68
+                         Insurance      0.960     1.000     0.980        72
+           Ip Ownership Assignment      0.864     0.905     0.884        42
+  Irrevocable Or Perpetual License      0.286     0.696     0.405        23
+                Joint Ip Ownership      0.682     0.938     0.789        16
+                     License Grant      0.683     0.413     0.515       104
+                Liquidated Damages      0.688     0.647     0.667        17
+                Minimum Commitment      0.817     0.891     0.852        55
+                       Non-Compete      0.629     0.647     0.638        34
+          Non-Transferable License      0.382     0.317     0.347        41
+Notice Period To Terminate Renewal      0.000     0.000     0.000        18
+                           Parties      0.994     0.991     0.992       317
+         Post-Termination Services      0.700     0.712     0.706        59
+                      Renewal Term      0.581     0.806     0.676        31
+            Revenue/Profit Sharing      0.926     0.909     0.917        55
+                    Rofr/Rofo/Rofn      0.796     0.830     0.812        47
+       Termination For Convenience      0.789     0.857     0.822        35
+                Uncapped Liability      0.559     0.760     0.644        25
+                Volume Restriction      0.739     0.739     0.739        23
+                 Warranty Duration      0.828     0.960     0.889        25
+
+                          accuracy                          0.798      1798
+                         macro avg      0.710     0.734     0.708      1798
+                      weighted avg      0.802     0.798     0.787      1798

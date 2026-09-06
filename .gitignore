@@ -26,6 +26,10 @@ data/processed/*
 # Trained models (can be large; regenerate via training pipeline)
 models/*
 !models/.gitkeep
+!models/legal-clause-classifier/
+models/legal-clause-classifier/*
+!models/legal-clause-classifier/evaluation_report.txt
+!models/legal-clause-classifier/confusion_matrix.png
 
 # Logs
 *.log
