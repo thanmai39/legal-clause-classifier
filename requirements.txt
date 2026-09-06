@@ -3,3 +3,9 @@ datasets==5.0.1
 pandas==3.0.5
 scikit-learn==1.9.0
 python-dotenv==1.2.3
+
+# --- Model training (Stage 3) ---
+torch==2.14.0
+transformers==5.16.1
+accelerate==1.14.0
+evaluate==0.4.6
