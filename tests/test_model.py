@@ -1,13 +1,15 @@
 """
 Tests for the prediction logic in src/inference/predictor.py.
 
-IMPORTANT: the trained model (~440MB) is NOT committed to Git (see
-.gitignore) -- it's a regenerable artifact, not source code. This means it
-will not exist in CI (GitHub Actions checks out the repo fresh, with no
-model). Tests that need real predictions are marked skipif the model
-directory is missing, so they run for real on a machine that has trained
-the model (like this one), and are skipped (not failed) in CI. This is a
-deliberate, honest trade-off: CI verifies what it realistically can.
+IMPORTANT: the trained model weights (~440MB) are NOT committed to Git
+(see .gitignore) -- they're a regenerable artifact, not source code. Only
+evaluation_report.txt and confusion_matrix.png are committed from that
+folder, so the DIRECTORY itself exists even in a fresh checkout with no
+model. We therefore check for the actual weights file (model.safetensors),
+not just the directory, to decide whether real predictions can run. Tests
+that need real predictions are skipped (not failed) when it's absent --
+e.g. in CI, which never trains a model. This is a deliberate, honest
+trade-off: CI verifies what it realistically can.
 """
 
 from pathlib import Path
@@ -17,7 +19,7 @@ import pytest
 from src.inference.predictor import ClausePredictor
 
 MODEL_DIR = Path(__file__).resolve().parents[1] / "models" / "legal-clause-classifier"
-MODEL_AVAILABLE = MODEL_DIR.exists()
+MODEL_AVAILABLE = (MODEL_DIR / "model.safetensors").exists()
 
 
 def test_predictor_raises_clear_error_if_model_missing(tmp_path):

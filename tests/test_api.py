@@ -17,7 +17,9 @@ from fastapi.testclient import TestClient
 from src.api.main import app
 
 MODEL_DIR = Path(__file__).resolve().parents[1] / "models" / "legal-clause-classifier"
-MODEL_AVAILABLE = MODEL_DIR.exists()
+# Check the actual weights file, not just the directory -- see test_model.py
+# for why (evaluation_report.txt/confusion_matrix.png ARE committed to Git).
+MODEL_AVAILABLE = (MODEL_DIR / "model.safetensors").exists()
 
 
 def test_health_endpoint_returns_ok():

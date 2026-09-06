@@ -24,9 +24,14 @@ class ClausePredictor:
     """Loads the model/tokenizer/label map once and serves predictions."""
 
     def __init__(self, model_dir: Path = MODEL_DIR):
-        if not model_dir.exists():
+        # Check for the actual weights file, not just the directory: the
+        # directory can exist (e.g. containing only evaluation_report.txt /
+        # confusion_matrix.png, which ARE committed to Git) without the
+        # ~440MB model.safetensors file actually being present, e.g. on a
+        # fresh clone or in CI, which never trains a model.
+        if not (model_dir / "model.safetensors").exists():
             raise FileNotFoundError(
-                f"Model directory not found at {model_dir}. "
+                f"Trained model weights not found at {model_dir}. "
                 "Run src/training/train.py first to produce a trained model."
             )
 
