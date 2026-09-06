@@ -1,0 +1,5 @@
+# --- Data pipeline (Stage 2) ---
+datasets==5.0.1
+pandas==3.0.5
+scikit-learn==1.9.0
+python-dotenv==1.2.3
