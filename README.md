@@ -38,8 +38,3 @@ tests/           automated tests
 .github/workflows/  CI pipeline
 ```
 
-## Documentation
-
-- `ARCHITECTURE.md` — full system design, data flow, Azure production mapping
-- `LEARNING_GUIDE.md` — the project explained as a step-by-step learning story
-- `INTERVIEW_GUIDE.md` — interview-style Q&A grounded in this project
