@@ -1,0 +1,23 @@
+# Files/folders excluded from the Docker BUILD CONTEXT (never sent to the
+# Docker daemon, never copied into any image). Separate from .gitignore --
+# this one controls what Docker sees, not what Git tracks.
+
+.git/
+.gitignore
+venv/
+__pycache__/
+*.pyc
+
+# Never bake secrets into an image -- .env is passed in at runtime instead
+# (see docker-compose.yml's env_file), never copied at build time.
+.env
+
+# Large data/model files -- the API container reads the trained model via
+# a volume mount at runtime (see docker-compose.yml), not by copying it
+# into the image. Data files aren't needed to serve predictions at all.
+data/
+models/
+
+notebooks/
+tests/
+*.md

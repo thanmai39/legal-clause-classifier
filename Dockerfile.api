@@ -1,0 +1,28 @@
+# Base image: a minimal Debian Linux with Python 3.13 pre-installed.
+# "slim" = stripped-down variant, much smaller than the default Python image.
+FROM python:3.13-slim
+
+# All following instructions run relative to /app inside the container.
+WORKDIR /app
+
+# Copy ONLY the requirements file first, then install -- before copying the
+# rest of the code. Docker caches each instruction as a "layer"; if the
+# requirements file hasn't changed, Docker reuses the cached install step
+# on the next build instead of re-downloading everything, even if your
+# source code changed. This ordering is a real, common Docker optimization.
+COPY requirements-api.txt .
+RUN pip install --no-cache-dir -r requirements-api.txt
+
+# Now copy the actual application code.
+COPY src/ src/
+
+# Documents that this container listens on port 8000 (informational --
+# doesn't actually publish the port; that happens in docker-compose.yml
+# or `docker run -p`).
+EXPOSE 8000
+
+# The command that runs when a container starts from this image.
+# --host 0.0.0.0 is required: it means "listen on all network interfaces,"
+# not just localhost -- without this, the API would be unreachable from
+# outside the container even with the port published.
+CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

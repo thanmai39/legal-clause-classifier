@@ -1,0 +1,31 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"   # host_port:container_port -- reach it at localhost:8000
+    volumes:
+      # Mount the trained model from your machine into the container.
+      # This means retraining the model does NOT require rebuilding this
+      # image -- the container always sees the current contents of ./models.
+      - ./models:/app/models
+    env_file:
+      - .env    # provides GEMINI_API_KEY inside the container, without ever baking it into the image
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "8501:8501"
+    environment:
+      # Inside Docker's internal network, containers reach each other by
+      # SERVICE NAME, not localhost. "api" here refers to the service
+      # defined above -- Docker Compose sets up DNS so "http://api:8000"
+      # resolves to the api container automatically.
+      - API_URL=http://api:8000
+    depends_on:
+      - api   # start api first (doesn't wait for it to be fully ready, just started)
+    restart: unless-stopped
