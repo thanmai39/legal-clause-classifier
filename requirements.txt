@@ -6,7 +6,9 @@ python-dotenv==1.2.3
 
 # --- Model training (Stage 3) ---
 torch==2.14.0
-transformers==5.16.1
+# NOTE: downgraded from 5.16.1 -- optimum (needed for ONNX export, Stage 10)
+# does not yet support transformers 5.x.
+transformers==4.57.6
 accelerate==1.14.0
 evaluate==0.4.6
 matplotlib==3.11.1
@@ -24,8 +26,10 @@ python-docx==1.2.0
 # --- Gemini explanation (Stage 6) ---
 google-genai==2.22.0
 
-# --- Deployment: loading the trained model from Hugging Face Hub (Stage 10) ---
-huggingface-hub==1.30.0
+# --- Deployment: ONNX export + loading from Hugging Face Hub (Stage 10) ---
+huggingface-hub==0.36.2
+optimum[onnxruntime]==2.1.0
+onnxruntime==1.29.0
 
 # --- Testing (Stage 8) ---
 pytest==9.1.1

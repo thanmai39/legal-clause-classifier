@@ -1,11 +1,17 @@
 # Minimal dependencies needed to SERVE the model (not train it).
 # Kept separate from requirements.txt so the API's Docker image doesn't
-# need training-only packages (datasets, scikit-learn, matplotlib, evaluate).
-torch==2.14.0
-transformers==5.16.1
-accelerate==1.14.0
+# need training-only packages.
+#
+# NOTE: no torch, accelerate, or optimum here -- the API serves an ONNX
+# model via onnxruntime (a much lighter inference engine), not PyTorch
+# directly. This matters a lot for memory: importing PyTorch alone used
+# ~650MB of RAM, exceeding our deployment platform's free 512MB tier.
+# transformers is still needed, but only for TOKENIZATION, which doesn't
+# require torch to be installed at all.
+onnxruntime==1.29.0
+transformers==4.57.6
+huggingface-hub==0.36.2
 fastapi==0.141.1
 uvicorn[standard]==0.52.4
 python-dotenv==1.2.3
 google-genai==2.22.0
-huggingface-hub==1.30.0
