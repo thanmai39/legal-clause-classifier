@@ -18,8 +18,11 @@ uvicorn[standard]==0.52.4
 # --- Frontend (Stage 5) ---
 streamlit==1.63.0
 requests==2.34.2
-pypdf
-python-docx
+pypdf==6.17.0
+python-docx==1.2.0
 
 # --- Gemini explanation (Stage 6) ---
 google-genai==2.22.0
+
+# --- Testing (Stage 8) ---
+pytest==9.1.1

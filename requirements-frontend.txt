@@ -1,0 +1,7 @@
+# Minimal dependencies for the Streamlit UI only -- no torch/transformers
+# needed here, since the frontend calls the API over HTTP rather than
+# loading the model itself.
+streamlit==1.63.0
+requests==2.34.2
+pypdf==6.17.0
+python-docx==1.2.0

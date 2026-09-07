@@ -1,0 +1,44 @@
+name: CI
+
+# Trigger on every push to any branch, and on every pull request.
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: python -m pytest -v
+        # Note: the trained model (~440MB) is not in this repo (see .gitignore),
+        # so model-dependent tests will SKIP here automatically (see the
+        # MODEL_AVAILABLE checks in tests/test_model.py and tests/test_api.py).
+        # That's expected, not a failure.
+
+  docker-build:
+    runs-on: ubuntu-latest
+    needs: test  # only attempt this if tests passed
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build API image
+        run: docker build -f Dockerfile.api -t legal-clause-api:ci .
+
+      - name: Build frontend image
+        run: docker build -f Dockerfile.frontend -t legal-clause-frontend:ci .
+        # We only BUILD here to verify the Dockerfiles are valid -- we don't
+        # push these images anywhere or run them, since this project doesn't
+        # need a container registry for its deployment approach.

@@ -1,0 +1,10 @@
+# Minimal dependencies needed to SERVE the model (not train it).
+# Kept separate from requirements.txt so the API's Docker image doesn't
+# need training-only packages (datasets, scikit-learn, matplotlib, evaluate).
+torch==2.14.0
+transformers==5.16.1
+accelerate==1.14.0
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+python-dotenv==1.2.3
+google-genai==2.22.0
