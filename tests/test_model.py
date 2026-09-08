@@ -1,15 +1,13 @@
 """
 Tests for the prediction logic in src/inference/predictor.py.
 
-IMPORTANT: the trained model weights (~440MB) are NOT committed to Git
-(see .gitignore) -- they're a regenerable artifact, not source code. Only
-evaluation_report.txt and confusion_matrix.png are committed from that
-folder, so the DIRECTORY itself exists even in a fresh checkout with no
-model. We therefore check for the actual weights file (model.safetensors),
-not just the directory, to decide whether real predictions can run. Tests
-that need real predictions are skipped (not failed) when it's absent --
-e.g. in CI, which never trains a model. This is a deliberate, honest
-trade-off: CI verifies what it realistically can.
+IMPORTANT: the trained model (~105MB, quantized ONNX format -- see
+src/training/export_onnx.py) is NOT committed to Git; it's a regenerable
+artifact, not source code. We check for the actual model file
+(model.onnx), not just the directory, to decide whether real predictions
+can run. Tests that need real predictions are skipped (not failed) when
+it's absent -- e.g. in CI, which never trains/exports a model. This is a
+deliberate, honest trade-off: CI verifies what it realistically can.
 """
 
 from pathlib import Path
@@ -18,8 +16,8 @@ import pytest
 
 from src.inference.predictor import ClausePredictor
 
-MODEL_DIR = Path(__file__).resolve().parents[1] / "models" / "legal-clause-classifier"
-MODEL_AVAILABLE = (MODEL_DIR / "model.safetensors").exists()
+MODEL_DIR = Path(__file__).resolve().parents[1] / "models" / "legal-clause-classifier-onnx"
+MODEL_AVAILABLE = (MODEL_DIR / "model.onnx").exists()
 
 
 def test_predictor_raises_clear_error_if_model_missing(tmp_path):
